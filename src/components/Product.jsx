@@ -1,42 +1,51 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Product({products, updateProducts}){
-    const [imgSrc1, setImgSrc1] = useState('')
-    const [price, setPrice] = useState('')
-    const [name, setName] = useState('')
-    const [count, setCount] = useState('')
+export default function Product({product, setProduct,  addToBasket}){
 
+    const [imgSrc, setImgSrc] = useState()
+    const [price, setPrice] = useState()
+    const [name, setName] = useState()
+    const [count, setCount] = useState()
+
+    //const [state, setState] = useState({ fName: "", lName: "" });
 
     useEffect(()=>{
-        updateProducts().then((result) =>{
-            setImgSrc1(result[0].bild)
-            setPrice(result[0].pris)
-            setName(result[0].name)
-            setCount(result[0].count)
-        })
-    },[products])
+        if(product != undefined){
+            setImgSrc(product.bild)
+            setPrice(product.pris)
+            setName(product.name)
+            setCount(product.count)
+        }
+    })
 
-    async function handleClick(){
-        updateProducts().then((data) => {
-            console.log(data);
-            console.log(data[0].bild)
-            
-        })
-        
+    function handleClick(){
+        if(product == undefined) return
+        if(product.count <=0) return
+        if(addToBasket(product.id)){
+            let bild = product.bild  
+            let pris = product.pris  
+            let name = product.name  
+            let count = product.count
+            let id = product.id  
+            //setProduct(...product, )
+        }
     }
+    
 
     return(
 
-        <div>
+        <div className="product-div">
+            <h1>{name}</h1>
+            <img src={imgSrc} alt="" className="product-img"/>
+
             <div>
-                <h2>{name}</h2>
-                <img src={imgSrc1} alt="" />
                 <h1>Pris : {price}</h1>
-                <p>count : {count}</p>
-                
+                <p>Lagersaldo : {count}</p>  
             </div>
-            
+
+            <button onClick={handleClick}>Add To basket</button>
+
         </div>
         
     )

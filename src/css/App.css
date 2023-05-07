@@ -1,0 +1,18 @@
+*{
+    background-color: black;
+    color: white;
+}
+.all-products-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:space-around;
+
+}
+.product-div{
+    min-width: 300px;
+    margin:2%;
+    border: 2px red solid;
+}
+.product-img{
+    height: 100px;
+}
